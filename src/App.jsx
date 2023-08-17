@@ -5,14 +5,14 @@ import CvEngine from "./pages/CvEngine";
 
 function App() {
   return (
-    <>
+    <div>
       <Routes>
         <Route
           path="/cv-engine"
           element={<CvEngine />}
         />
       </Routes>
-    </>
+    </div>
   );
 }
 
