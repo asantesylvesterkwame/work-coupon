@@ -1,6 +1,6 @@
 import React, { Children } from "react";
 
-const Card = ({ width, height, children, padding }) => {
+const Card = ({ width, height, children, padding, position }) => {
   let shadoweffect;
 
   const classNameForCard =
@@ -10,6 +10,7 @@ const Card = ({ width, height, children, padding }) => {
     width: width + "em",
     height: height + "em",
     padding: padding + "em",
+    position: position,
   };
   return (
     <div
