@@ -12,17 +12,9 @@ import { BiSolidBriefcase } from "react-icons/bi";
 
 const CvEngine = () => {
   const [tab, setTab] = useState(true);
+
   const contentTab = document.getElementById("ContentDiv");
   const customizeTab = document.getElementById("CustomizeDiv");
-  if (!tab) {
-    contentTab.style.background = "none"
-    customizeTab.style.background = "#f3f4f6";
-
-  }else{
-    contentTab.style.background = "#f3f4f6";
-    customizeTab.style.background = "none";
-  }
-
   return (
     <div className="main flex  justify-center items-center bg-[#f3f4f6] h-screen  m-0 p-0">
       <div className="MainCvSectionDiv -4 w-[1440px] p-10 flex gap-10 bg-[#f3f4f6] h-screen">
@@ -36,6 +28,8 @@ const CvEngine = () => {
             <button
               onClick={() => {
                 setTab(true);
+                contentTab.style.background = "#f3f4f6";
+                customizeTab.style.background = "none";
               }}
               id="ContentDiv"
               className="ContentDiv flex flex-col justify-center items-center  w-24 p-2.5 cursor-pointer bg-slate-200 rounded-md  active:scale-90 transition"
@@ -48,6 +42,8 @@ const CvEngine = () => {
             <button
               onClick={() => {
                 setTab(false);
+                contentTab.style.background = "none";
+                customizeTab.style.background = "#f3f4f6";
               }}
               id="CustomizeDiv"
               className="CustomizeDiv  active:scale-90 transition flex flex-col justify-center items-center p-2.5  w-24 rounded-md cursor-pointer"
@@ -73,7 +69,7 @@ const CvEngine = () => {
                   </span>
                   <span>Clear</span>Resume
                 </button>
-                <button className="loadExampleDiv  active:scale-90 transition flex gap-1 justify-center items-center border px-20 rounded-lg bg-slate-300 font-semibold cursor-pointer text-sm">
+                <button className="loadExampleDiv  active:scale-90 transition flex gap-1 justify-center items-center px-20 rounded-lg bg-[#f3f4f6] font-semibold cursor-pointer text-sm">
                   <span>Load</span>Example
                 </button>
               </div>
@@ -136,11 +132,47 @@ const CvEngine = () => {
               </div>
             </div>
           ) : (
-            <div className="bg-white  rounded-lg shadow flex items-center p-5  gap-2.5 font-bold text-2xl justify-between">
-              <div className="flex items-center gap-3">
-                <h1>Layout</h1>
+            <>
+              <div className="bg-white  rounded-lg shadow flex  items-center p-5  gap-2.5 font-bold text-2xl justify-between">
+                <div className=" flex flex-col gap-3">
+                  <div className="flex items-center gap-3">
+                    <h1>Color</h1>
+                  </div>
+                  <div className="ColorDiv flex gap-5 items-center justify-center  ">
+                    <span className="font-normal ">Accent Color</span>
+                    <span>
+                      <input
+                        type="color"
+                        name=""
+                        id="colorInput"
+                        className="rounded-full"
+                      />
+                    </span>
+                  </div>
+                </div>
               </div>
-            </div>
+              <div className="bg-white  rounded-lg shadow flex  items-center p-5  gap-2.5 font-bold text-2xl justify-between">
+                <div className=" flex flex-col gap-3">
+                  <div className="flex items-center gap-3">
+                    <h1>Fonts</h1>
+                  </div>
+                  <div className="ColorDiv flex gap-5 items-center justify-center  ">
+                    <div className="border-black border p-10 flex flex-col justify-center items-center font-normal w-16 h-16 rounded-lg font-serif">
+                      <div className="mainLetter">Aa</div>
+                      <div className="FontName font-thin ">Serif</div>
+                    </div>
+                    <div className="border-black border p-10 flex flex-col justify-center items-center font-normal w-16 h-16 rounded-md font-sans">
+                      <div className="mainLetter">Aa</div>
+                      <div className="FontName font-thin ">Sans</div>
+                    </div>
+                    <div className="border-black border p-10 flex flex-col justify-center items-center font-normal w-16 h-16 rounded-md font-mono">
+                      <div className="mainLetter">Aa</div>
+                      <div className="FontName font-thin ">Mono</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
           )}
         </div>
         <div className="MainResumeDiv border w-screen max-h-[100vh] h-screen bg-white shadow-xl">
