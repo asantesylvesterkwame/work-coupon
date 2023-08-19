@@ -7,6 +7,7 @@ const FormInput = ({
   height,
   placeholder,
   recommendation,
+  onChange
 }) => {
   const inputStyle = {
     width: width + "em",
@@ -30,6 +31,7 @@ const FormInput = ({
           placeholder={placeholder}
           className="border rounded-xl py-1 px-3   outline-blue-700 outline-neon transition-all "
           style={inputStyle}
+          onChange={onChange}
         />
       </form>
     </div>
