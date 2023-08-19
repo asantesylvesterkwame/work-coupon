@@ -9,9 +9,19 @@ import PersonalDetails from "../Components/PersonalDetails";
 import FormInput from "../Components/FormInput";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { BiSolidBriefcase } from "react-icons/bi";
+import { AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
+import { FaRegEye } from "react-icons/fa";
 
 const CvEngine = () => {
   const [tab, setTab] = useState(true);
+  const [personalInfo, setPersonalInfo] = useState({
+    fullName: "",
+    email: "",
+    phoneNumber: "",
+    address: "",
+  });
+  const [isOpen, setIsOpen] = useState(false);
+  const [expTab, setExpTab] = useState(false);
 
   const contentTab = document.getElementById("ContentDiv");
   const customizeTab = document.getElementById("CustomizeDiv");
@@ -32,7 +42,7 @@ const CvEngine = () => {
                 customizeTab.style.background = "none";
               }}
               id="ContentDiv"
-              className="ContentDiv flex flex-col justify-center items-center  w-24 p-2.5 cursor-pointer bg-slate-200 rounded-md  active:scale-90 transition"
+              className="ContentDiv flex flex-col justify-center items-center  w-24 p-2.5 cursor-pointer bg-[#f3f4f6] rounded-md  active:scale-90 transition"
             >
               <span>
                 <CgFileDocument />
@@ -83,20 +93,45 @@ const CvEngine = () => {
                     <h1 className="font-bold text-xl ">Personal Details</h1>
                   </div>
                   <FormInput
+                    onChange={(e) => {
+                      setPersonalInfo({
+                        fullName: e.target.value,
+                      });
+                      console.log(personalInfo);
+                    }}
                     Label="Full Name"
                     placeholder="John Doe"
                   />
                   <FormInput
+                    onChange={(e) => {
+                      setPersonalInfo({
+                        email: e.target.value,
+                      });
+                      console.log(personalInfo);
+                    }}
                     Label="Email"
                     placeholder="johndoe@mail.com"
                     recommendation="recommended"
                   />
                   <FormInput
+                    type="text"
+                    onChange={(e) => {
+                      setPersonalInfo({
+                        phoneNumber: e.target.value,
+                      });
+                      console.log(personalInfo);
+                    }}
                     Label="Phone Number"
                     placeholder="+233 12 3456 7890"
                     recommendation="recommended"
                   />
                   <FormInput
+                    onChange={(e) => {
+                      setPersonalInfo({
+                        address: e.target.value,
+                      });
+                      console.log(personalInfo);
+                    }}
                     Label="Address"
                     placeholder="city, country"
                     recommendation="recommended"
@@ -104,30 +139,111 @@ const CvEngine = () => {
                 </div>
               </div>
 
-              <div className="bg-white  rounded-lg shadow flex items-center p-5  gap-2.5 font-bold text-2xl justify-between">
-                <div className="flex items-center gap-3">
-                  <button>
-                    <FaGraduationCap />
-                  </button>
-                  <span>Education</span>
-                </div>
-                <div className="flex justify-center items-center text-2xl">
-                  <span>
-                    <RiArrowDropDownLine className="text-4xl text-gray-500" />
-                  </span>
+              <div
+                id="menuCard"
+                className="  bg-white rounded-lg shadow flex flex-col p-5  gap-2.5 font-bold text-2xl justify-between "
+              >
+                <button
+                  onClick={() => {
+                    setIsOpen((prev) => !prev);
+                  }}
+                  className="flex items-center justify-between"
+                >
+                  <div className="flex items-center gap-3">
+                    <button>
+                      <FaGraduationCap />
+                    </button>
+                    <span>Education</span>
+                  </div>
+                  {!isOpen ? (
+                    <span>
+                      <AiFillCaretDown className="text-lg text-gray-500" />
+                    </span>
+                  ) : (
+                    <span>
+                      <AiFillCaretUp className="text-lg text-gray-500" />
+                    </span>
+                  )}
+                </button>
+
+                <div className="">
+                  {isOpen && (
+                    <>
+                      <div className="bg-white border-t-2   border-b-2 flex items-center p-5  gap-2.5 font-semibold justify-between">
+                        <div className="flex items-center cursor-pointer gap-3">
+                          <span className="text-sm">
+                            Kwame Nkrumah University Of Science and Technology
+                          </span>
+                        </div>
+                        <button className="flex justify-center cursor-pointer items-center text-2xl">
+                          <span>
+                            <FaRegEye className="text-xl " />
+                          </span>
+                        </button>
+                      </div>
+                      <div className="flex justify-center items-center">
+                        <div className="bg-white flex  items-center p-5  gap-2.5 font-semibold justify-between">
+                          <button className="border-2 text-sm p-2 rounded-full hover:bg-[#f3f4f6] transition">
+                            + Education
+                          </button>
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
-              <div className="bg-white  rounded-lg shadow flex items-center p-5  gap-2.5 font-bold text-2xl justify-between">
-                <div className="flex items-center gap-3">
-                  <button>
-                    <BiSolidBriefcase />
-                  </button>
-                  <span>Experience</span>
-                </div>
-                <div className="flex justify-center items-center text-2xl">
-                  <span>
-                    <RiArrowDropDownLine className="text-4xl text-gray-500" />
-                  </span>
+
+              <div
+                id="menuCard"
+                className="  bg-white rounded-lg shadow flex flex-col p-5  gap-2.5 font-bold text-2xl justify-between "
+              >
+                <button
+                  onClick={() => {
+                    setExpTab((prev) => !prev);
+                  }}
+                  className="flex items-center justify-between"
+                >
+                  <div className="flex items-center gap-3">
+                    <button>
+                      <BiSolidBriefcase />
+                    </button>
+                    <span>Experience</span>
+                  </div>
+                  {!isOpen ? (
+                    <span>
+                      <AiFillCaretDown className="text-lg text-gray-500" />
+                    </span>
+                  ) : (
+                    <span>
+                      <AiFillCaretUp className="text-lg text-gray-500" />
+                    </span>
+                  )}
+                </button>
+
+                <div className="">
+                  {!expTab && (
+                    <>
+                      <div className="bg-white border-t-2   border-b-2 flex items-center p-5  gap-2.5 font-semibold justify-between">
+                        <div className="flex items-center cursor-pointer gap-3">
+                          <span className="text-sm">
+                            Kwame Nkrumah University Of Science and Technology
+                          </span>
+                        </div>
+                        <button className="flex justify-center cursor-pointer items-center text-2xl">
+                          <span>
+                            <FaRegEye className="text-xl " />
+                          </span>
+                        </button>
+                      </div>
+                      <div className="flex justify-center">
+                        <div className="bg-white flex  items-center p-5  gap-2.5 font-semibold justify-between">
+                          <button className="border-2 text-sm p-2 rounded-full hover:bg-[#f3f4f6] transition">
+                            + Experience
+                          </button>
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
@@ -161,7 +277,7 @@ const CvEngine = () => {
                       <div className="mainLetter">Aa</div>
                       <div className="FontName font-thin ">Serif</div>
                     </div>
-                    <div className="border-black border p-10 flex flex-col justify-center items-center font-normal w-16 h-16 rounded-md font-sans">
+                    <div className="border-black border bg-black text-white p-10 flex flex-col justify-center items-center font-normal w-16 h-16 rounded-md font-sans">
                       <div className="mainLetter">Aa</div>
                       <div className="FontName font-thin ">Sans</div>
                     </div>
@@ -178,26 +294,34 @@ const CvEngine = () => {
         <div className="MainResumeDiv border w-screen max-h-[100vh] h-screen bg-white shadow-xl">
           <div className="TopBanner border bg-[#0e374e] h-1/6  flex flex-col text-white justify-center items-center gap-5">
             <div className="workerNameDiv text-white font-bold text-4xl">
-              <h1>Sylvester Asante</h1>
+              <h1>
+                {!personalInfo.fullName
+                  ? "Sylvester Asante"
+                  : personalInfo.fullName}
+              </h1>
             </div>
             <div className="WorkerDetails flex justify-center items-center gap-5">
               <div className="workerEmailDiv flex gap-1 justify-center items-center">
                 <span>
                   <MdEmail />
                 </span>
-                sylvesterasante17@gmail.com
+                {!personalInfo.email
+                  ? "sylvesterasante17@gmail.com"
+                  : personalInfo.email}
               </div>
               <div className="phoneNumberDiv flex gap-1 justify-center items-center">
                 <span>
                   <BsFillTelephoneFill />
                 </span>
-                +233 24 681 5631
+                {!personalInfo.phoneNumber
+                  ? "+233 24 681 5631"
+                  : personalInfo.phoneNumber}
               </div>
               <div className="AddressDiv flex gap-1 justify-center items-center">
                 <span>
                   <FaMapMarkerAlt />
                 </span>
-                Accra, Ghana
+                {!personalInfo.address ? "Accra, Ghana" : personalInfo.address}
               </div>
             </div>
           </div>
