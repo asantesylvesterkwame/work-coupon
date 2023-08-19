@@ -1,6 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+body {
+  background: #f3f4f6;
+}
 
 #colorInput {
   -webkit-appearance: none;
@@ -18,4 +21,13 @@
   border-radius: 50%;
   shape-outside: circle();
   clip-path: circle();
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
 }
