@@ -10,7 +10,7 @@ const PersonalDetails = (props) => {
           </div>
           <div className="EducationDetails flex gap-10 py-5">
             <div className="DateAndTimeDiv">
-              <p>{props.date}</p>
+              <p>{props.date} - {props.endDate}</p>
               <p>{props.address}</p>
             </div>
             <div className="collegeAndDegreeDiv">
