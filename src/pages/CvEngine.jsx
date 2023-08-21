@@ -11,6 +11,8 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import { BiSolidBriefcase } from "react-icons/bi";
 import { AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
 import { FaRegEye } from "react-icons/fa";
+import SecondaryButton from "../Components/SecondaryButton";
+import SubmitBtn from "../Components/SubmitBtn";
 
 const CvEngine = () => {
   const [tab, setTab] = useState(true);
@@ -20,8 +22,16 @@ const CvEngine = () => {
     phoneNumber: "",
     address: "",
   });
+  const [educationalInfo, setEducationalInfo] = useState({
+    schoolName: "Kwame Nkrumah University Of Science And Technology",
+    degree: "BSc. Telecommunications Engineering",
+    startDate: "",
+    finishDate: "01/2023",
+    location: "Kumasi, Ghana",
+  });
   const [isOpen, setIsOpen] = useState(false);
-  const [expTab, setExpTab] = useState(false);
+  const [expTab, setExpTab] = useState(true);
+  const [editForm, setEditForm] = useState(false);
 
   const contentTab = document.getElementById("ContentDiv");
   const customizeTab = document.getElementById("CustomizeDiv");
@@ -170,23 +180,108 @@ const CvEngine = () => {
                   {isOpen && (
                     <>
                       <div className="bg-white border-t-2   border-b-2 flex items-center p-5  gap-2.5 font-semibold justify-between">
-                        <div className="flex items-center cursor-pointer gap-3">
-                          <span className="text-sm">
-                            Kwame Nkrumah University Of Science and Technology
-                          </span>
-                        </div>
-                        <button className="flex justify-center cursor-pointer items-center text-2xl">
-                          <span>
-                            <FaRegEye className="text-xl " />
-                          </span>
-                        </button>
-                      </div>
-                      <div className="flex justify-center items-center">
-                        <div className="bg-white flex  items-center p-5  gap-2.5 font-semibold justify-between">
-                          <button className="border-2 text-sm p-2 rounded-full hover:bg-[#f3f4f6] transition">
-                            + Education
-                          </button>
-                        </div>
+                        {editForm ? (
+                          <div className="PersonalDetailFormDiv border-transparent rounded-lg w-full flex flex-col gap-5">
+                            <div className="bg-white  rounded-lg shadow flex  flex-col p-5  gap-2.5 ">
+                              <div className="PersonalDetailsForm">
+                                <FormInput
+                                  onChange={(e) => {
+                                    setEducationalInfo({
+                                      schoolName: e.target.value,
+                                    });
+                                    console.log(educationalInfo);
+                                  }}
+                                  Label="School"
+                                  placeholder="School Name"
+                                />
+
+                                <FormInput
+                                  onChange={(e) => {
+                                    setEducationalInfo({
+                                      degree: e.target.value,
+                                    });
+                                    console.log(educationalInfo);
+                                  }}
+                                  Label="Degree"
+                                  placeholder="eg. Bsc. Telecommunication Engineering"
+                                />
+                                <div className="flex gap-5">
+                                  <FormInput
+                                    type="text"
+                                    onChange={(e) => {
+                                      setEducationalInfo({
+                                        startDate: e.target.value,
+                                      });
+                                      console.log(educationalInfo);
+                                    }}
+                                    Label="Start Date"
+                                    placeholder="01/2023"
+                                  />
+                                  <FormInput
+                                    type="text"
+                                    onChange={(e) => {
+                                      setEducationalInfo({
+                                        finishDate: e.target.value,
+                                      });
+                                      console.log(educationalInfo);
+                                    }}
+                                    Label="Finish Date"
+                                    placeholder="01/2026 or Present"
+                                  />
+                                </div>
+                                <FormInput
+                                  onChange={(e) => {
+                                    setEducationalInfo({
+                                      location: e.target.value,
+                                    });
+                                    console.log(educationalInfo);
+                                  }}
+                                  Label="Location"
+                                  placeholder="city, country"
+                                  recommendation="optional"
+                                />
+                                <div className="formActionsDiv flex justify-between ">
+                                  <div className="deleteDiv">
+                                    <SecondaryButton text="Delete" />
+                                  </div>
+                                  <div className="cancelAndSaveDiv flex gap-2">
+                                    <SecondaryButton text="Cancel" />
+
+                                    <SubmitBtn text="Save" />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <div>
+                            <div
+                              onClick={() => {
+                                setEditForm(true);
+                              }}
+                              className=" bg-white border-t-2   border-b-2 flex items-center p-5  gap-2.5 font-semibold justify-between"
+                            >
+                              <div className="flex items-center cursor-pointer gap-3">
+                                <span className="text-sm ">
+                                  Kwame Nkrumah University Of Science and
+                                  Technology
+                                </span>
+                              </div>
+                              <button className="flex justify-center cursor-pointer items-center text-2xl">
+                                <span>
+                                  <FaRegEye className="text-xl " />
+                                </span>
+                              </button>
+                            </div>
+                            <div className="flex justify-center">
+                              <div className="bg-white flex  items-center p-5  gap-2.5 font-semibold justify-between">
+                                <button className="border-2 text-sm p-2 rounded-full hover:bg-[#f3f4f6] transition">
+                                  + Education
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </>
                   )}
@@ -291,7 +386,7 @@ const CvEngine = () => {
             </>
           )}
         </div>
-        <div className="MainResumeDiv border w-screen max-h-[100vh] h-screen bg-white shadow-xl">
+        <div className="MainResumeDiv border-8 w-screen h-screen bg-white shadow-xl">
           <div className="TopBanner border bg-[#0e374e] h-1/6  flex flex-col text-white justify-center items-center gap-5">
             <div className="workerNameDiv text-white font-bold text-4xl">
               <h1>
@@ -327,10 +422,18 @@ const CvEngine = () => {
           </div>
           <PersonalDetails
             title="Education"
-            date="01/2023"
-            address="Kumasi, Ghana"
-            name="Kwame Nkrumah University Of Science And Technology"
-            mainInfo=" BSc. Telecommunications Engineering"
+            date={
+              !educationalInfo.startDate ? "01/26" : educationalInfo.startDate
+            }
+            address={
+              !educationalInfo.location ? "Kumasi Ghana" : educationalInfo.location
+            }
+            name={
+              !educationalInfo.schoolName ? "Kwame NKrumah University of Science and Technology" : educationalInfo.schoolName
+            }
+            mainInfo={
+              !educationalInfo.degree ? "Bsc. Telecommunication Engineering" : educationalInfo.degree
+            }
           />
           <PersonalDetails
             title="Professional Experience"
