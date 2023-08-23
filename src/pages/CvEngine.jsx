@@ -13,31 +13,64 @@ import { AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
 import { FaRegEye } from "react-icons/fa";
 import SecondaryButton from "../Components/SecondaryButton";
 import SubmitBtn from "../Components/SubmitBtn";
+import { FaRegEyeSlash } from "react-icons/fa";
 
 const CvEngine = () => {
   const [tab, setTab] = useState(true);
   const [personalInfo, setPersonalInfo] = useState({
-    fullName: "",
-    email: "",
-    phoneNumber: "",
-    address: "",
+    fullName: "Sylvester Asante",
+    email: "sylvesterasante17@gmail.com",
+    phoneNumber: "+233 24 681 5631",
+    address: "Accra, Ghana",
   });
   const [educationalInfo, setEducationalInfo] = useState({
     schoolName: "Kwame Nkrumah University Of Science And Technology",
-    degree: "BSc. Telecommunications Engineering",
-    startDate: "",
-    finishDate: "01/2023",
+    degree: "Bsc. Telecommunication Engineering",
+    startDate: "01/23",
+    finishDate: "01/26",
     location: "Kumasi, Ghana",
+  });
+  const [educationalInfoArray, setEducationalInfoArray] = useState([]);
+  const [experienceInfo, setExperienceInfo] = useState({
+    companyName: "Michan Web Solutions",
+    title: "Frontend Developer",
+    startDate: "02/23",
+    finishDate: "09/26",
+    location: "Tema, Ghana",
+    desc: "Experienced frontend developer with a strong proficiency in HTML, CSS, and JavaScript, and a passion for creating visually appealing and responsive web applications. Proven track record of translating design concepts into interactive user experiences, optimizing website performance, and collaborating effectively with cross-functional teams.",
   });
   const [isOpen, setIsOpen] = useState(false);
   const [expTab, setExpTab] = useState(true);
   const [editForm, setEditForm] = useState(false);
+  const [infoVisibility, setInfoVisibility] = useState(false);
 
   const contentTab = document.getElementById("ContentDiv");
   const customizeTab = document.getElementById("CustomizeDiv");
+
+  const handleInputChange = (e) => {
+    setEducationalInfo({
+      ...educationalInfo,
+      [e.target.id]: e.target.value,
+    });
+
+    console.log(educationalInfo);
+  };
+
+  const handleFormSave = () => {
+    // setEducationalInfoArray(...educationalInfoArray, educationalInfo);
+    try {
+      setEducationalInfo({
+        ...educationalInfo,
+      });
+      setEditForm(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <div className="main flex  justify-center items-center bg-[#f3f4f6] h-screen  m-0 p-0">
-      <div className="MainCvSectionDiv -4 w-[1440px] p-10 flex gap-10 bg-[#f3f4f6] h-screen">
+    <div className="main flex  justify-center  items-center bg-[#f3f4f6] h-screen  m-0 p-0">
+      <div className="MainCvSectionDiv -4 w-[1440px] p-10 flex gap-5 bg-[#f3f4f6] h-screen">
         <div className="layoutDiv  ">
           <Card
             shadoweffect={"shadow-lg"}
@@ -105,16 +138,19 @@ const CvEngine = () => {
                   <FormInput
                     onChange={(e) => {
                       setPersonalInfo({
+                        ...personalInfo,
                         fullName: e.target.value,
                       });
                       console.log(personalInfo);
                     }}
                     Label="Full Name"
                     placeholder="John Doe"
+                    value={personalInfo.fullName}
                   />
                   <FormInput
                     onChange={(e) => {
                       setPersonalInfo({
+                        ...personalInfo,
                         email: e.target.value,
                       });
                       console.log(personalInfo);
@@ -122,11 +158,13 @@ const CvEngine = () => {
                     Label="Email"
                     placeholder="johndoe@mail.com"
                     recommendation="recommended"
+                    value={personalInfo.email}
                   />
                   <FormInput
                     type="text"
                     onChange={(e) => {
                       setPersonalInfo({
+                        ...personalInfo,
                         phoneNumber: e.target.value,
                       });
                       console.log(personalInfo);
@@ -134,17 +172,21 @@ const CvEngine = () => {
                     Label="Phone Number"
                     placeholder="+233 12 3456 7890"
                     recommendation="recommended"
+                    value={personalInfo.phoneNumber}
                   />
                   <FormInput
                     onChange={(e) => {
                       setPersonalInfo({
+                        ...personalInfo,
                         address: e.target.value,
                       });
                       console.log(personalInfo);
                     }}
+                    type="address"
                     Label="Address"
                     placeholder="city, country"
                     recommendation="recommended"
+                    value={personalInfo.address}
                   />
                 </div>
               </div>
@@ -181,73 +223,70 @@ const CvEngine = () => {
                     <>
                       <div className="bg-white border-t-2   border-b-2 flex items-center p-5  gap-2.5 font-semibold justify-between">
                         {editForm ? (
-                          <div className="PersonalDetailFormDiv border-transparent rounded-lg w-full flex flex-col gap-5">
+                          <div className="PersonalDetailFormDiv border-transparent rounded-lg  flex flex-col gap-5">
                             <div className="bg-white  rounded-lg shadow flex  flex-col p-5  gap-2.5 ">
                               <div className="PersonalDetailsForm">
                                 <FormInput
-                                  onChange={(e) => {
-                                    setEducationalInfo({
-                                      schoolName: e.target.value,
-                                    });
-                                    console.log(educationalInfo);
-                                  }}
+                                  onChange={handleInputChange}
+                                  id="schoolName"
                                   Label="School"
                                   placeholder="School Name"
+                                  defaultValue={educationalInfo.schoolName}
                                 />
 
                                 <FormInput
-                                  onChange={(e) => {
-                                    setEducationalInfo({
-                                      degree: e.target.value,
-                                    });
-                                    console.log(educationalInfo);
-                                  }}
+                                  onChange={handleInputChange}
+                                  id="degree"
                                   Label="Degree"
                                   placeholder="eg. Bsc. Telecommunication Engineering"
+                                  defaultValue={educationalInfo.degree}
                                 />
                                 <div className="flex gap-5">
                                   <FormInput
                                     type="text"
-                                    onChange={(e) => {
-                                      setEducationalInfo({
-                                        startDate: e.target.value,
-                                      });
-                                      console.log(educationalInfo);
-                                    }}
+                                    onChange={handleInputChange}
+                                    id="startDate"
                                     Label="Start Date"
-                                    placeholder="01/2023"
+                                    placeholder="mm/yy"
+                                    defaultValue={educationalInfo.startDate}
                                   />
                                   <FormInput
                                     type="text"
-                                    onChange={(e) => {
-                                      setEducationalInfo({
-                                        finishDate: e.target.value,
-                                      });
-                                      console.log(educationalInfo);
-                                    }}
+                                    onChange={handleInputChange}
+                                    id="finishDate"
                                     Label="Finish Date"
-                                    placeholder="01/2026 or Present"
+                                    placeholder="mm/yy or Present"
+                                    defaultValue={educationalInfo.finishDate}
                                   />
                                 </div>
                                 <FormInput
-                                  onChange={(e) => {
-                                    setEducationalInfo({
-                                      location: e.target.value,
-                                    });
-                                    console.log(educationalInfo);
-                                  }}
+                                  onChange={handleInputChange}
+                                  id="location"
                                   Label="Location"
                                   placeholder="city, country"
                                   recommendation="optional"
+                                  defaultValue={educationalInfo.location}
                                 />
                                 <div className="formActionsDiv flex justify-between ">
                                   <div className="deleteDiv">
                                     <SecondaryButton text="Delete" />
                                   </div>
                                   <div className="cancelAndSaveDiv flex gap-2">
-                                    <SecondaryButton text="Cancel" />
+                                    <SecondaryButton
+                                      onClick={() => {
+                                        setEditForm((prev) => !prev);
+                                        setEducationalInfo(
+                                          ...educationalInfo,
+                                          (prev) => prev
+                                        );
+                                      }}
+                                      text="Cancel"
+                                    />
 
-                                    <SubmitBtn text="Save" />
+                                    <SubmitBtn
+                                      onClick={handleFormSave}
+                                      text="Save"
+                                    />
                                   </div>
                                 </div>
                               </div>
@@ -255,22 +294,37 @@ const CvEngine = () => {
                           </div>
                         ) : (
                           <div>
-                            <div
-                              onClick={() => {
-                                setEditForm(true);
-                              }}
-                              className=" bg-white border-t-2   border-b-2 flex items-center p-5  gap-2.5 font-semibold justify-between"
-                            >
+                            <div className=" bg-white border-t-2   border-b-2 flex items-center p-5  gap-2.5 font-semibold justify-between">
                               <div className="flex items-center cursor-pointer gap-3">
-                                <span className="text-sm ">
-                                  Kwame Nkrumah University Of Science and
-                                  Technology
+                                <span
+                                  className="text-sm "
+                                  onClick={() => {
+                                    setEditForm(true);
+                                  }}
+                                >
+                                  {educationalInfo.schoolName}
                                 </span>
                               </div>
                               <button className="flex justify-center cursor-pointer items-center text-2xl">
-                                <span>
-                                  <FaRegEye className="text-xl " />
-                                </span>
+                                {infoVisibility ? (
+                                  <FaRegEye
+                                    onClick={() => {
+                                      setInfoVisibility(false);
+                                      
+                                      
+                                    }}
+                                    className="text-xl "
+                                  />
+                                ) : (
+                                  <FaRegEyeSlash
+                                    onClick={() => {
+                                      setInfoVisibility(true);
+                                    }}
+                                    className="text-xl "
+                                  />
+                                )}
+
+                                <span></span>
                               </button>
                             </div>
                             <div className="flex justify-center">
@@ -321,7 +375,7 @@ const CvEngine = () => {
                       <div className="bg-white border-t-2   border-b-2 flex items-center p-5  gap-2.5 font-semibold justify-between">
                         <div className="flex items-center cursor-pointer gap-3">
                           <span className="text-sm">
-                            Kwame Nkrumah University Of Science and Technology
+                            {educationalInfo.schoolName}
                           </span>
                         </div>
                         <button className="flex justify-center cursor-pointer items-center text-2xl">
@@ -386,62 +440,52 @@ const CvEngine = () => {
             </>
           )}
         </div>
-        <div className="MainResumeDiv border-8 w-screen h-screen bg-white shadow-xl">
+        <div
+          className="MainResumeDiv border-8 w-screen h-[100vh] flex-nowrap bg-white shadow-xl"
+          style={{ height: "100vh" }}
+        >
           <div className="TopBanner border bg-[#0e374e] h-1/6  flex flex-col text-white justify-center items-center gap-5">
             <div className="workerNameDiv text-white font-bold text-4xl">
-              <h1>
-                {!personalInfo.fullName
-                  ? "Sylvester Asante"
-                  : personalInfo.fullName}
-              </h1>
+              <h1>{personalInfo.fullName}</h1>
             </div>
             <div className="WorkerDetails flex justify-center items-center gap-5">
               <div className="workerEmailDiv flex gap-1 justify-center items-center">
                 <span>
                   <MdEmail />
                 </span>
-                {!personalInfo.email
-                  ? "sylvesterasante17@gmail.com"
-                  : personalInfo.email}
+                {personalInfo.email}
               </div>
               <div className="phoneNumberDiv flex gap-1 justify-center items-center">
                 <span>
                   <BsFillTelephoneFill />
                 </span>
-                {!personalInfo.phoneNumber
-                  ? "+233 24 681 5631"
-                  : personalInfo.phoneNumber}
+                {personalInfo.phoneNumber}
               </div>
               <div className="AddressDiv flex gap-1 justify-center items-center">
                 <span>
                   <FaMapMarkerAlt />
                 </span>
-                {!personalInfo.address ? "Accra, Ghana" : personalInfo.address}
+                {personalInfo.address}
               </div>
             </div>
           </div>
+
           <PersonalDetails
             title="Education"
-            date={
-              !educationalInfo.startDate ? "01/26" : educationalInfo.startDate
-            }
-            address={
-              !educationalInfo.location ? "Kumasi Ghana" : educationalInfo.location
-            }
-            name={
-              !educationalInfo.schoolName ? "Kwame NKrumah University of Science and Technology" : educationalInfo.schoolName
-            }
-            mainInfo={
-              !educationalInfo.degree ? "Bsc. Telecommunication Engineering" : educationalInfo.degree
-            }
+            date={educationalInfo.startDate}
+            endDate={educationalInfo.finishDate}
+            address={educationalInfo.location}
+            name={educationalInfo.schoolName}
+            mainInfo={educationalInfo.degree}
           />
           <PersonalDetails
             title="Professional Experience"
-            date="02/2023"
-            address="Tema, Ghana"
-            name="Michan Web Solutions"
-            mainInfo="Frontend Developer"
-            desc="Experienced frontend developer with a strong proficiency in HTML, CSS, and JavaScript, and a passion for creating visually appealing and responsive web applications. Proven track record of translating design concepts into interactive user experiences, optimizing website performance, and collaborating effectively with cross-functional teams."
+            date={experienceInfo.startDate}
+            endDate={experienceInfo.finishDate}
+            address={experienceInfo.location}
+            name={experienceInfo.companyName}
+            mainInfo={experienceInfo.location}
+            desc={experienceInfo.desc}
           />
         </div>
       </div>
