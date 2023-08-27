@@ -14,6 +14,8 @@ import { FaRegEye } from "react-icons/fa";
 import SecondaryButton from "../Components/SecondaryButton";
 import SubmitBtn from "../Components/SubmitBtn";
 import { FaRegEyeSlash } from "react-icons/fa";
+import educationList from "../JSONData/education.json";
+import ExperienceList from "../JSONData/experience.json";
 
 const CvEngine = () => {
   const [tab, setTab] = useState(true);
@@ -43,6 +45,7 @@ const CvEngine = () => {
   const [expTab, setExpTab] = useState(true);
   const [editForm, setEditForm] = useState(false);
   const [infoVisibility, setInfoVisibility] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
 
   const contentTab = document.getElementById("ContentDiv");
   const customizeTab = document.getElementById("CustomizeDiv");
@@ -57,20 +60,15 @@ const CvEngine = () => {
   };
 
   const handleFormSave = () => {
-    // setEducationalInfoArray(...educationalInfoArray, educationalInfo);
-    try {
-      setEducationalInfo({
-        ...educationalInfo,
-      });
-      setEditForm(false);
-    } catch (error) {
-      console.log(error);
-    }
+    setEducationalInfo({
+      ...educationalInfo,
+    });
+    setEditForm(false);
   };
 
   return (
     <div className="main flex  justify-center  items-center bg-[#f3f4f6] h-screen  m-0 p-0">
-      <div className="MainCvSectionDiv -4 w-[1440px] p-10 flex gap-5 bg-[#f3f4f6] h-screen">
+      <div className="MainCvSectionDiv sm:flex-col lg:flex-row w-[1440px] p-10 flex gap-5 bg-[#f3f4f6] h-screen">
         <div className="layoutDiv  ">
           <Card
             shadoweffect={"shadow-lg"}
@@ -129,6 +127,7 @@ const CvEngine = () => {
             </Card>
           </div>
           {tab ? (
+          <>
             <div className="PersonalDetailFormDiv flex flex-col gap-5">
               <div className="bg-white  rounded-lg shadow flex  flex-col p-5  gap-2.5 ">
                 <div className="PersonalDetailsForm">
@@ -145,7 +144,7 @@ const CvEngine = () => {
                     }}
                     Label="Full Name"
                     placeholder="John Doe"
-                    value={personalInfo.fullName}
+                    defaultValue={personalInfo.fullName}
                   />
                   <FormInput
                     onChange={(e) => {
@@ -158,7 +157,7 @@ const CvEngine = () => {
                     Label="Email"
                     placeholder="johndoe@mail.com"
                     recommendation="recommended"
-                    value={personalInfo.email}
+                    defaultValue={personalInfo.email}
                   />
                   <FormInput
                     type="text"
@@ -172,7 +171,7 @@ const CvEngine = () => {
                     Label="Phone Number"
                     placeholder="+233 12 3456 7890"
                     recommendation="recommended"
-                    value={personalInfo.phoneNumber}
+                    defaultValue={personalInfo.phoneNumber}
                   />
                   <FormInput
                     onChange={(e) => {
@@ -186,20 +185,20 @@ const CvEngine = () => {
                     Label="Address"
                     placeholder="city, country"
                     recommendation="recommended"
-                    value={personalInfo.address}
+                    defaultValue={personalInfo.address}
                   />
                 </div>
               </div>
 
               <div
                 id="menuCard"
-                className="  bg-white rounded-lg shadow flex flex-col p-5  gap-2.5 font-bold text-2xl justify-between "
+                className=" relative z-10 bg-white rounded-lg shadow flex flex-col p-5  gap-2.5 font-bold text-2xl justify-between "
               >
-                <button
+                <div
                   onClick={() => {
                     setIsOpen((prev) => !prev);
                   }}
-                  className="flex items-center justify-between"
+                  className="flex items-center justify-between cursor-pointer"
                 >
                   <div className="flex items-center gap-3">
                     <button>
@@ -216,149 +215,46 @@ const CvEngine = () => {
                       <AiFillCaretUp className="text-lg text-gray-500" />
                     </span>
                   )}
-                </button>
-
-                <div className="">
-                  {isOpen && (
-                    <>
-                      <div className="bg-white border-t-2   border-b-2 flex items-center p-5  gap-2.5 font-semibold justify-between">
-                        {editForm ? (
-                          <div className="PersonalDetailFormDiv border-transparent rounded-lg  flex flex-col gap-5">
-                            <div className="bg-white  rounded-lg shadow flex  flex-col p-5  gap-2.5 ">
-                              <div className="PersonalDetailsForm">
-                                <FormInput
-                                  onChange={handleInputChange}
-                                  id="schoolName"
-                                  Label="School"
-                                  placeholder="School Name"
-                                  defaultValue={educationalInfo.schoolName}
-                                />
-
-                                <FormInput
-                                  onChange={handleInputChange}
-                                  id="degree"
-                                  Label="Degree"
-                                  placeholder="eg. Bsc. Telecommunication Engineering"
-                                  defaultValue={educationalInfo.degree}
-                                />
-                                <div className="flex gap-5">
-                                  <FormInput
-                                    type="text"
-                                    onChange={handleInputChange}
-                                    id="startDate"
-                                    Label="Start Date"
-                                    placeholder="mm/yy"
-                                    defaultValue={educationalInfo.startDate}
-                                  />
-                                  <FormInput
-                                    type="text"
-                                    onChange={handleInputChange}
-                                    id="finishDate"
-                                    Label="Finish Date"
-                                    placeholder="mm/yy or Present"
-                                    defaultValue={educationalInfo.finishDate}
-                                  />
-                                </div>
-                                <FormInput
-                                  onChange={handleInputChange}
-                                  id="location"
-                                  Label="Location"
-                                  placeholder="city, country"
-                                  recommendation="optional"
-                                  defaultValue={educationalInfo.location}
-                                />
-                                <div className="formActionsDiv flex justify-between ">
-                                  <div className="deleteDiv">
-                                    <SecondaryButton text="Delete" />
-                                  </div>
-                                  <div className="cancelAndSaveDiv flex gap-2">
-                                    <SecondaryButton
-                                      onClick={() => {
-                                        setEditForm((prev) => !prev);
-                                        setEducationalInfo(
-                                          ...educationalInfo,
-                                          (prev) => prev
-                                        );
-                                      }}
-                                      text="Cancel"
-                                    />
-
-                                    <SubmitBtn
-                                      onClick={handleFormSave}
-                                      text="Save"
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        ) : (
-                          <div>
-                            <div className=" bg-white border-t-2   border-b-2 flex items-center p-5  gap-2.5 font-semibold justify-between">
-                              <div className="flex items-center cursor-pointer gap-3">
-                                <span
-                                  className="text-sm "
-                                  onClick={() => {
-                                    setEditForm(true);
-                                  }}
-                                >
-                                  {educationalInfo.schoolName}
-                                </span>
-                              </div>
-                              <button className="flex justify-center cursor-pointer items-center text-2xl">
-                                {infoVisibility ? (
-                                  <FaRegEye
-                                    onClick={() => {
-                                      setInfoVisibility(false);
-                                      
-                                      
-                                    }}
-                                    className="text-xl "
-                                  />
-                                ) : (
-                                  <FaRegEyeSlash
-                                    onClick={() => {
-                                      setInfoVisibility(true);
-                                    }}
-                                    className="text-xl "
-                                  />
-                                )}
-
-                                <span></span>
-                              </button>
-                            </div>
-                            <div className="flex justify-center">
-                              <div className="bg-white flex  items-center p-5  gap-2.5 font-semibold justify-between">
-                                <button className="border-2 text-sm p-2 rounded-full hover:bg-[#f3f4f6] transition">
-                                  + Education
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </>
-                  )}
                 </div>
-              </div>
 
-              <div
+                {isOpen && (
+                  // <>
+                  <div className="bg-white absolute top-20 right-1 flex flex-col items-start rounded-lg p-2 w-full">
+                    {educationList.map((schoolName, i) => (
+                      <div
+                        key={i}
+                        className="flex w-full justify-between hover:bg-blue-300 cursor-pointer rounded-r-lg border-l-transparent p-4 border-b-2 "
+                      >
+                        <h3 className="font-semibold text-sm">
+                          {schoolName.school}
+                        </h3>
+                        <h3>{schoolName.visibility}</h3>
+                      </div>
+                    ))}
+                  </div>
+
+                  // </>
+                )}
+              </div>
+              
+            </div>
+            <div
                 id="menuCard"
-                className="  bg-white rounded-lg shadow flex flex-col p-5  gap-2.5 font-bold text-2xl justify-between "
+                className=" relative bg-white rounded-lg shadow flex flex-col p-5  gap-2.5 font-bold text-2xl justify-between "
               >
-                <button
+                <div
                   onClick={() => {
                     setExpTab((prev) => !prev);
                   }}
-                  className="flex items-center justify-between"
+                  className="flex items-center justify-between cursor-pointer"
                 >
                   <div className="flex items-center gap-3">
                     <button>
-                      <BiSolidBriefcase />
+                      <FaGraduationCap />
                     </button>
                     <span>Experience</span>
                   </div>
-                  {!isOpen ? (
+                  {!expTab ? (
                     <span>
                       <AiFillCaretDown className="text-lg text-gray-500" />
                     </span>
@@ -367,35 +263,28 @@ const CvEngine = () => {
                       <AiFillCaretUp className="text-lg text-gray-500" />
                     </span>
                   )}
-                </button>
-
-                <div className="">
-                  {!expTab && (
-                    <>
-                      <div className="bg-white border-t-2   border-b-2 flex items-center p-5  gap-2.5 font-semibold justify-between">
-                        <div className="flex items-center cursor-pointer gap-3">
-                          <span className="text-sm">
-                            {educationalInfo.schoolName}
-                          </span>
-                        </div>
-                        <button className="flex justify-center cursor-pointer items-center text-2xl">
-                          <span>
-                            <FaRegEye className="text-xl " />
-                          </span>
-                        </button>
-                      </div>
-                      <div className="flex justify-center">
-                        <div className="bg-white flex  items-center p-5  gap-2.5 font-semibold justify-between">
-                          <button className="border-2 text-sm p-2 rounded-full hover:bg-[#f3f4f6] transition">
-                            + Experience
-                          </button>
-                        </div>
-                      </div>
-                    </>
-                  )}
                 </div>
+
+                {expTab && (
+                  // <>
+                  <div className="bg-white absolute top-20 right-1 flex flex-col items-start rounded-lg p-2 w-full">
+                    {ExperienceList.map((experience, i) => (
+                      <div
+                        key={i}
+                        className="flex w-full justify-between hover:bg-blue-300 cursor-pointer rounded-r-lg border-l-transparent p-4 border-b-2 "
+                      >
+                        <h3 className="font-semibold text-sm">
+                          {experience.company}
+                        </h3>
+                        <h3>{experience.visibility}</h3>
+                      </div>
+                    ))}
+                  </div>
+
+                  // </>
+                )}
               </div>
-            </div>
+              </>
           ) : (
             <>
               <div className="bg-white  rounded-lg shadow flex  items-center p-5  gap-2.5 font-bold text-2xl justify-between">
