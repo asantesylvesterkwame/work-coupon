@@ -8,7 +8,7 @@ function App() {
     <div>
       <Routes>
         <Route
-          path="/cv-engine"
+          path="/"
           element={<CvEngine />}
         />
       </Routes>
