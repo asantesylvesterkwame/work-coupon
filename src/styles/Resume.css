@@ -63,3 +63,23 @@ button {
   background-color: var(--section-resume-bg);
   color: var(--resume-accent);
 }
+
+.download-button{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.download{
+  width: 100%;
+  padding: 10px;
+  background-color: var(--resume-accent);
+  color: white;
+  border-radius: 10px;
+  border: none;
+}
+.download:hover{
+  background-color: rgb(47, 60, 83);
+  transition: 0.1s all ease-in-out;
+}
+
