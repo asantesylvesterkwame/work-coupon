@@ -1,6 +1,5 @@
 {
   "name": "cv-project",
-  "homepage": "https://sharkri.github.io/cv-application",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
