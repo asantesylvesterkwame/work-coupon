@@ -199,6 +199,7 @@ function App() {
         sections={sections}
         layout={resumeLayout}
       />
+      
     </div>
   );
 }
