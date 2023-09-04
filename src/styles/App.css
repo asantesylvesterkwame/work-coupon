@@ -27,3 +27,7 @@ form {
   max-width: 750px;
   flex-grow: 1;
 }
+
+@media only screen and (min-device-width: 480px) and (max-device-width: 800px) {
+    /* insert styles here */
+}
