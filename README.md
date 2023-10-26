@@ -3,7 +3,7 @@
 
 <h1 align="center">📑 CV Application</h1>
 
-![](https://i.imgur.com/WlVW8mm.png)
+
 <p align="center">
   CV Creator built with React
 </p>
