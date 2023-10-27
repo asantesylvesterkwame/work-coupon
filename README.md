@@ -19,10 +19,13 @@ An React SPA to create a CV with. You can add, edit and delete input fields to p
 
 ## Features ✨
 - Autofill Functionality
+- Change Layout Functionality
+- Change Colour Functionality
 - Responsiveness for mobile, tablet and desktop
 - Saves CV as PDF and downloads it
 - Real-time adoption of changes
 - Clean UI/UX
+  
 
 ## Technologies Used 💻
 - React
